@@ -1,4 +1,3 @@
-from app.data.stats import KNIGHTS
 from app.data.classes import Knight
 
 
@@ -8,11 +7,12 @@ def battle(knights_config: dict) -> dict:
     arthur = Knight(knights_config["arthur"])
     red_knight = Knight(knights_config["red_knight"])
 
-    lancelot.take_damage(mordred.power)
-    mordred.take_damage(lancelot.power)
+    def process_battle(fighter1: Knight, fighter2: Knight) -> None:
+        fighter1.take_damage(fighter2.power)
+        fighter2.take_damage(fighter1.power)
 
-    arthur.take_damage(red_knight.power)
-    red_knight.take_damage(arthur.power)
+    process_battle(lancelot, mordred)
+    process_battle(arthur, red_knight)
 
     return {
         lancelot.name: lancelot.hp,
@@ -20,6 +20,3 @@ def battle(knights_config: dict) -> dict:
         arthur.name: arthur.hp,
         red_knight.name: red_knight.hp,
     }
-
-
-print(battle(KNIGHTS))
